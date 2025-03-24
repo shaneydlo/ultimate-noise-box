@@ -1,4 +1,4 @@
-FROM balenalib/raspberrypi3-ubuntu-python:3.7-bionic-build-20210826
+FROM balenalib/raspberrypi5-ubuntu-python:3.10
 
 WORKDIR /usr/src/app
 
