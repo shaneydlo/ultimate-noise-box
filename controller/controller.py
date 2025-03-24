@@ -1,9 +1,5 @@
 from gpiozero import Device, Button
-from gpiozero.pins.lgpio import LgpioFactory
 from signal import pause
-
-# Use the lgpio pin factory for Raspberry Pi 5 hardware
-Device.pin_factory = LgpioFactory()
 
 # Define Buttons using BCM numbering with internal pull-ups and debounce (bounce_time)
 stop_button   = Button(5, pull_up=True, bounce_time=0.6)
