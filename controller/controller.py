@@ -1,7 +1,7 @@
 import os
 os.environ["GPIO_BASE"] = "0xFE000000"
 
-import RPi.GPIO as GPIO
+import gpiod as GPIO
 import time
 
 # Use Broadcom (BCM) pin numbering
