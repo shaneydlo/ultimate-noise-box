@@ -1,4 +1,4 @@
-FROM balenalib/raspberrypi3-ubuntu-python:3.7-focal-build-20210826
+FROM balenalib/raspberrypi3-ubuntu-python:3.7-focal
 
 WORKDIR /usr/src/app
 
