@@ -18,6 +18,7 @@ import time
 import subprocess 
 import datetime 
 import RPi.GPIO as GPIO 
+GPIO.setmode(GPIO.BCM)
 import requests
 import redis 
 import os
