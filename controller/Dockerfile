@@ -1,19 +1,13 @@
-FROM balenalib/raspberrypi3-ubuntu-python:3.7-focal
+FROM balenalib/raspberrypi5-ubuntu-python:20250202
 
 WORKDIR /usr/src/app
 
 RUN \
-    apt-get update && apt-get install -y \
-    ttf-dejavu \ 
-    libfreetype6-dev \
-    build-essential \
-    gcc \
-    python3-dev \
-    libjpeg-dev \
-    libpng-dev
+    apt-get update && apt-get install -y python3-pip python3-lgpio python3-libgpiod
 
 COPY requirements.txt requirements.txt
-RUN pip3 install -r requirements.txt
+RUN pip3 install gpiozero --break-system-packages
+#RUN pip3 install -r requirements.txt
 
 # *** tested versions of installed libraries ***
 # numpy 1.21.5
