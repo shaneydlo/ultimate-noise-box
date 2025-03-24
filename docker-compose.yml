@@ -51,7 +51,5 @@ services:
     build: ./controller
     volumes:
       - 'shared-data:/data/my_data'
-    devices:
-      - "/dev/gpiomem:/dev/gpiomem"
     labels:
       io.balena.features.supervisor-api: '1'
