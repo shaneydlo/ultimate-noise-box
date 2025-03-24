@@ -1,3 +1,6 @@
+import os
+os.environ["GPIO_BASE"] = "0xFE000000"
+
 import RPi.GPIO as GPIO
 import time
 
