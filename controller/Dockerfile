@@ -3,7 +3,8 @@ FROM balenalib/raspberrypi4-64-ubuntu-python:3.8
 WORKDIR /usr/src/app
 
 RUN \
-    apt-get update && apt-get install -y ttf-dejavu libfreetype6-dev
+    apt-get update 
+# && apt-get install -y ttf-dejavu libfreetype6-dev
 
 COPY requirements.txt requirements.txt
 RUN pip3 install -r requirements.txt
