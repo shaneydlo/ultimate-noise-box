@@ -55,7 +55,7 @@ Use your favorite project case, and to enhance the project, print your own facep
 
 This project uses the [balena platform](https://www.balena.io/) for ease of deployment, device management and as the best way to run containers on the Pi. Sign up for a free account - the first 10 devices are free and fully featured. After assembling your hardware and creating a balena account, simply click the button below to generate a microSD card image to burn and insert in your Pi:
 
-[![balena deploy button](https://www.balena.io/deploy.svg)](https://dashboard.balena-cloud.com/deploy?repoUrl=https://github.com/alanb128/ultimate-noise-box)
+[![balena deploy button](https://www.balena.io/deploy.svg)](https://dashboard.balena-cloud.com/deploy?repoUrl=https://github.com/shaneydlo/ultimate-noise-box)
 
 After you create a fleet, add a new device. Choose the type of Pi you'll be using and you can also add your WiFi credentials at this point. You'll be able to download the SD card image after you add the device. You can use [balenaEtcher](https://etcher.balena.io/) to burn your SD card image. After powering on your Pi, it should start downloading the software.
 
