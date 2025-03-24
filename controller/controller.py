@@ -1,18 +1,15 @@
-import os
-os.environ["GPIO_BASE"] = "0xFE000000"
-
-import gpiod as GPIO
+from gpiozero import Button
 import time
 
 # Use Broadcom (BCM) pin numbering
 GPIO.setmode(GPIO.BCM)
 
 # Define your GPIO pins
-P1_GPIO = 6
-P2_GPIO = 13
-P3_GPIO = 12
-P4_GPIO = 20
-STOP_GPIO = 5
+P1_GPIO = Button(6)
+P2_GPIO = Button(13)
+P3_GPIO = Button(12)
+P4_GPIO = Button(20)
+STOP_GPIO = Button(5)
 
 DEBOUNCE = 600  # debounce time in milliseconds
 
