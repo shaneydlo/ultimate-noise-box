@@ -3,7 +3,7 @@ FROM balenalib/raspberrypi5-ubuntu-python:3.10
 WORKDIR /usr/src/app
 
 RUN \
-    apt-get update && apt-get install -y ttf-dejavu libfreetype6-dev python3-rpgio
+    apt-get update && apt-get install -y ttf-dejavu libfreetype6-dev python3-lgpio
 
 COPY requirements.txt requirements.txt
 RUN pip3 install -r requirements.txt
