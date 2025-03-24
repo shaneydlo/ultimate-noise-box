@@ -1,4 +1,4 @@
-from gpiozero import Device, Button
+from gpiozero import Button
 from signal import pause
 
 # Define Buttons using BCM numbering with internal pull-ups and debounce (bounce_time)
