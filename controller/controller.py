@@ -1,9 +1,6 @@
 from gpiozero import Button
 import time
 
-# Use Broadcom (BCM) pin numbering
-GPIO.setmode(GPIO.BCM)
-
 # Define your GPIO pins
 P1_GPIO = Button(6)
 P2_GPIO = Button(13)
