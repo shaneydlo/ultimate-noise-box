@@ -1,4 +1,4 @@
-FROM balenalib/raspberrypi5-ubuntu-python:3.10
+FROM balenalib/raspberrypi4-64-ubuntu-python:3.8
 
 WORKDIR /usr/src/app
 
