@@ -7,8 +7,9 @@ assets:
     data:
       url: "https://github.com/alanb128/ultimate-noise-box"
 data:
-  defaultDeviceType: "raspberrypi3-64"
+  defaultDeviceType: "raspberrypi5"
   supportedDeviceTypes:
+    - "raspberrypi3-64"
     - "raspberrypi4-64"
     - "raspberrypi0-2w-64"
     - "raspberrypi400-64"
