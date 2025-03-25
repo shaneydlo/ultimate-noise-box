@@ -46,7 +46,7 @@ services:
     volumes:
       - 'shared-data:/data/my_data'
   controller:
-    restart: always
+    restart: never
     privileged: true
     build: ./controller
     volumes:
