@@ -26,5 +26,4 @@ COPY *.ttf ./
 COPY *.sh ./
 COPY ./assets ./assets
 
-#CMD [ "bash", "start.sh" ]
-CMD [ "bash" ]
+CMD [ "bash", "start.sh" ]
