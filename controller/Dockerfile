@@ -1,4 +1,5 @@
-FROM balenalib/raspberrypi5-ubuntu-python:20250202
+#FROM balenalib/raspberrypi5-ubuntu-python:20250202
+FROM balenalib/raspberrypi4-64-ubuntu-python:3.8
 
 WORKDIR /usr/src/app
 
@@ -6,10 +7,9 @@ RUN \
     apt-get update && apt-get install -y python3-pip python3-lgpio python3-libgpiod
 
 COPY requirements.txt requirements.txt
-#RUN pip3 install gpiozero --break-system-packages
+
 RUN pip3 install -r requirements.txt
-# Enable udevd so that plugged dynamic hardware devices show up in our container.
-ENV UDEV=1
+
 # *** tested versions of installed libraries ***
 # numpy 1.21.5
 # pillow 9.1.0
