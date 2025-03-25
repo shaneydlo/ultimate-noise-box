@@ -6,8 +6,8 @@ RUN \
     apt-get update && apt-get install -y python3-pip python3-lgpio python3-libgpiod
 
 COPY requirements.txt requirements.txt
-RUN pip3 install gpiozero --break-system-packages
-#RUN pip3 install -r requirements.txt
+#RUN pip3 install gpiozero --break-system-packages
+RUN pip3 install -r requirements.txt
 
 # *** tested versions of installed libraries ***
 # numpy 1.21.5
