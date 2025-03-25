@@ -1,5 +1,5 @@
 #FROM balenalib/raspberrypi5-ubuntu-python:20250202
-FROM balenalib/balenalib/raspberrypi4-64-debian-python:3.7-sid
+FROM balenalib/raspberrypi4-64-debian-python:3.7-sid
 
 WORKDIR /usr/src/app
 
