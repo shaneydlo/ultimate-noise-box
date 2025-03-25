@@ -4,16 +4,10 @@ FROM balenalib/raspberrypi4-64-ubuntu-python:3.8
 WORKDIR /usr/src/app
 
 RUN apt-get update && apt-get install -y \ 
-    git \
     python3-lgpio \
     build-essential
 
 # Clone and build LGPIO from source
-RUN git clone https://github.com/joan2937/lg.git /tmp/python-lgpio && \
-    cd /tmp/python-lgpio && \
-    make && \
-    make install && \
-    rm -rf /tmp/python-lgpio
 
 #    apt-get update && apt-get install -y python3-pip python3-lgpio python3-libgpiod
 
