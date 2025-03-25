@@ -6,8 +6,8 @@ from signal import pause
 Device.pin_factory = LgpioFactory()
 
 # Define button inputs on GPIO pins 5 and 6 (using BCM numbering)
-STOP_GPIO = Button(5, pull_up=True, bounce_time=0.2)
-P1_GPIO = Button(6, pull_up=True, bounce_time=0.2)
+button_pin5 = Button(5, pull_up=True, bounce_time=0.2)
+button_pin6 = Button(6, pull_up=True, bounce_time=0.2)
 P2_GPIO = Button(13, pull_up=True, bounce_time=0.2)
 P3_GPIO = Button(12, pull_up=True, bounce_time=0.2)
 P4_GPIO = Button(20, pull_up=True, bounce_time=0.2)
