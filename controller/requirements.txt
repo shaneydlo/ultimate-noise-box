@@ -3,4 +3,3 @@ rpi-lgpio
 requests
 redis==4.2.2
 lgpio 
-RPi.Gpio
