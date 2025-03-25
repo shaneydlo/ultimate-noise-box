@@ -9,7 +9,7 @@ RUN apt-get update && apt-get install -y \
     build-essential
 
 # Clone and build LGPIO from source
-RUN git clone https://github.com/joan2937/python-lgpio.git /tmp/python-lgpio && \
+RUN git clone https://github.com/joan2937/lg.git /tmp/python-lgpio && \
     cd /tmp/python-lgpio && \
     make && \
     make install && \
