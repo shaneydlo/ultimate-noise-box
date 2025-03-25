@@ -1,36 +1,56 @@
-from gpiozero import Button
-from signal import pause
+import os
+import RPi.GPIO as GPIO
+import time
 
-# Define Buttons using BCM numbering with internal pull-ups and debounce (bounce_time)
-stop_button   = Button(5, pull_up=True, bounce_time=0.6)
-preset1_button = Button(6, pull_up=True, bounce_time=0.6)
-preset2_button = Button(13, pull_up=True, bounce_time=0.6)
-preset3_button = Button(12, pull_up=True, bounce_time=0.6)
-preset4_button = Button(20, pull_up=True, bounce_time=0.6)
+# Use Broadcom (BCM) pin numbering
+GPIO.setmode(GPIO.BCM)
+
+# Define your GPIO pins
+P1_GPIO = 6
+P2_GPIO = 13
+P3_GPIO = 12
+P4_GPIO = 20
+STOP_GPIO = 5
+
+DEBOUNCE = 600  # debounce time in milliseconds
 
 # Callback for the STOP button
-def stop_callback():
-    print("Stop button pressed on GPIO 5")
+def button_stop(channel):
+    print("Stop button pressed on GPIO", channel)
+    
+# Callback for preset buttons (P1-P4)
+def button_preset(channel):
+    if channel == P1_GPIO:
+        print("Preset 1 button pressed")
+    elif channel == P2_GPIO:
+        print("Preset 2 button pressed")
+    elif channel == P3_GPIO:
+        print("Preset 3 button pressed")
+    elif channel == P4_GPIO:
+        print("Preset 4 button pressed")
+    else:
+        print("Unknown preset button pressed on GPIO", channel)
 
-# Callbacks for preset buttons
-def preset1_callback():
-    print("Preset 1 button pressed")
+# Setup GPIO inputs with internal pull-up resistors
+GPIO.setup(STOP_GPIO, GPIO.IN, pull_up_down=GPIO.PUD_UP)
+GPIO.setup(P1_GPIO, GPIO.IN, pull_up_down=GPIO.PUD_UP)
+GPIO.setup(P2_GPIO, GPIO.IN, pull_up_down=GPIO.PUD_UP)
+GPIO.setup(P3_GPIO, GPIO.IN, pull_up_down=GPIO.PUD_UP)
+GPIO.setup(P4_GPIO, GPIO.IN, pull_up_down=GPIO.PUD_UP)
 
-def preset2_callback():
-    print("Preset 2 button pressed")
-
-def preset3_callback():
-    print("Preset 3 button pressed")
-
-def preset4_callback():
-    print("Preset 4 button pressed")
-
-# Attach callbacks to button events
-stop_button.when_pressed   = stop_callback
-preset1_button.when_pressed = preset1_callback
-preset2_button.when_pressed = preset2_callback
-preset3_button.when_pressed = preset3_callback
-preset4_button.when_pressed = preset4_callback
+# Add edge detection to each button with debouncing
+GPIO.add_event_detect(STOP_GPIO, GPIO.RISING, callback=button_stop, bouncetime=DEBOUNCE)
+GPIO.add_event_detect(P1_GPIO, GPIO.RISING, callback=button_preset, bouncetime=DEBOUNCE)
+GPIO.add_event_detect(P2_GPIO, GPIO.RISING, callback=button_preset, bouncetime=DEBOUNCE)
+GPIO.add_event_detect(P3_GPIO, GPIO.RISING, callback=button_preset, bouncetime=DEBOUNCE)
+GPIO.add_event_detect(P4_GPIO, GPIO.RISING, callback=button_preset, bouncetime=DEBOUNCE)
 
 print("Monitoring buttons. Press Ctrl+C to exit.")
-pause()
+
+try:
+    while True:
+        time.sleep(1)
+except KeyboardInterrupt:
+    print("Exiting...")
+finally:
+    GPIO.cleanup()
