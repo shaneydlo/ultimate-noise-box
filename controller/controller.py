@@ -3,7 +3,8 @@ import RPi.GPIO as GPIO
 import time
 
 # Use Broadcom (BCM) pin numbering
-GPIO.setmode(GPIO.BCM)
+#GPIO.setmode(GPIO.BCM)
+GPIO.setmode(GPIO.BOARD)
 
 # Define your GPIO pins
 P1_GPIO = 6
