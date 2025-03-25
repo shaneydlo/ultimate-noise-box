@@ -3,12 +3,14 @@ FROM balenalib/raspberrypi4-64-ubuntu-python:3.8
 
 WORKDIR /usr/src/app
 
-RUN \
-    apt-get update && apt-get install -y python3-pip python3-lgpio python3-libgpiod
+RUN apt-get update && apt-get install -y python3-lgpio build-essential
+#    apt-get update && apt-get install -y python3-pip python3-lgpio python3-libgpiod
 
 COPY requirements.txt requirements.txt
 
-RUN pip3 install -r requirements.txt
+# RUN pip3 install -r requirements.txt
+RUN pip3 install --upgrade pip setuptools wheel
+RUN pip3 install gpiozero
 
 # *** tested versions of installed libraries ***
 # numpy 1.21.5
@@ -24,4 +26,5 @@ COPY *.ttf ./
 COPY *.sh ./
 COPY ./assets ./assets
 
-CMD [ "bash", "start.sh" ]
+#CMD [ "bash", "start.sh" ]
+CMD [ "bash" ]
