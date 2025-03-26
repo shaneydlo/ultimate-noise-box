@@ -14,7 +14,7 @@ RUN apt-get update && apt-get install -y i2c-tools
    # make install && \
     #rm -rf /tmp/python-lgpio
 
-RUN pip3 install requests lgpio rpi-lgpio
+RUN pip3 install requests lgpio rpi-lgpio redis 
 
 COPY *.py ./
 COPY *.ttf ./
