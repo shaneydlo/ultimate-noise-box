@@ -9,6 +9,8 @@ DEBOUNCE = 600  # switch debounce time in ms
 wav_list = []  # list of available wav files to play (strings)
 loop_count = 0  # loop counter for checking the current sound status
 now_playing = ""  # name of currently playing file or emply string
+IMAGE_PATH = os.getenv('MEDIA_PATH', "/data/my_data/noise/")  # string path to noise and images
+ASSET_PATH = os.getenv('ASSET_PATH', "/data/my_data/assets/") # string path to non-noise assets
 
 P1_GPIO = 6
 P2_GPIO = 13
@@ -16,6 +18,18 @@ P3_GPIO = 12 # was 19
 P4_GPIO = 20
 STOP_GPIO = 5
 
+def lib_setup():
+    #
+    # Generate list of all sound files available,
+    # Get all sound files in folder
+    #
+    dir_list = os.listdir(IMAGE_PATH)
+    # for each file:
+    for d in dir_list:
+        d[-4:] == ".wav":
+        noise_name = d[:len(d) - 4]
+        wav_list.append(noise_name)
+            
 def button_preset(channel):
     #
     # play a preset
