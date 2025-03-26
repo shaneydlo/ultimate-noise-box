@@ -4,7 +4,10 @@ import os
 import RPi.GPIO as GPIO
 
 GPIO.setmode(GPIO.BCM)
-DEBOUNCE = 600  # switch debounce time in m
+DEBOUNCE = 600  # switch debounce time in ms
+loop_count = 0  # loop counter for checking the current sound status
+now_playing = ""  # name of currently playing file or emply string
+
 P1_GPIO = 6
 P2_GPIO = 13
 P3_GPIO = 12 # was 19
