@@ -62,4 +62,31 @@ GPIO.add_event_detect(P3_GPIO, GPIO.RISING, callback=button_preset, bouncetime=D
 GPIO.setup(P4_GPIO, GPIO.IN, pull_up_down=GPIO.PUD_UP)
 GPIO.add_event_detect(P4_GPIO, GPIO.RISING, callback=button_preset, bouncetime=DEBOUNCE)
 
-time.sleep(2)
+while True:
+    loop_count = loop_count + 1
+    if loop_count == 5:
+        loop_count = 0
+        #  Check to see if some other process has changed the status
+        try:
+            r = requests.get('http://noise:5000/')
+        except:
+            print("Error accessing noise service.")
+        j = r.json()
+        if j["status"] == "stop":
+            if now_playing != "":
+                now_playing = ""
+                display_now(idle_image)
+        else:
+            if now_playing != j["file"]:
+                now_playing = j["file"]
+                display_now(img_list[wav_list.index(now_playing)])
+        # See if we need to save a new volume level in Redis
+        #if current_volume != new_volume:
+            # Save volume in Redis
+        #    try:
+        #        redis_conn.set('v', current_volume)
+        #   except:
+         #       print("Error saving volume data to Redis.")
+         #   new_volume = current_volume
+
+    time.sleep(2)
