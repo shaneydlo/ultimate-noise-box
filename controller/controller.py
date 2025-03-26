@@ -6,6 +6,7 @@ import RPi.GPIO as GPIO
 
 GPIO.setmode(GPIO.BCM)
 DEBOUNCE = 600  # switch debounce time in ms
+wav_list = []  # list of available wav files to play (strings)
 loop_count = 0  # loop counter for checking the current sound status
 now_playing = ""  # name of currently playing file or emply string
 
