@@ -24,11 +24,13 @@ def lib_setup():
     # Get all sound files in folder
     #
     dir_list = os.listdir(IMAGE_PATH)
+    print("Directory listing:", dir_list)  # Debug: list all files found
     # for each file:
     for d in dir_list:
         if d[-4:] == ".wav":
             noise_name = d[:len(d) - 4]
             wav_list.append(noise_name)
+    print("Final wav_list:", wav_list)  # Debug: show final list
             
 def button_preset(channel):
     #
