@@ -1,6 +1,7 @@
 import requests
 import time
 import os
+import redis
 import RPi.GPIO as GPIO
 
 GPIO.setmode(GPIO.BCM)
@@ -13,7 +14,24 @@ P2_GPIO = 13
 P3_GPIO = 12 # was 19
 P4_GPIO = 20
 STOP_GPIO = 5
-
+def button_preset(channel):
+    #
+    # play a preset
+    #
+    # get preset number (1-4) from channel
+    preset_channel = [P1_GPIO, P2_GPIO, P3_GPIO, P4_GPIO]
+    presety = preset_channel.index(channel)
+    # get preset name value from redis
+    r = redis.StrictRedis(host='redis', port=6379, db=0, decode_responses=True)
+    p = r.get("p" + str(presety + 1))
+    print("Preset {0} ({1}) pressed.".format(p, presety))
+    # play/display the file image
+    if p is None:
+        print("No preset value for {}".format(presety))
+    else:
+       # text_icon = ["\U000F03A4", "\U000F03A7", "\U000F03AA", "\U000F03AD"]
+        play_file(p, text_icon[presety])
+        
 def button_stop(channel):
     #
     # stop payback
