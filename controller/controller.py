@@ -1,29 +1,46 @@
-from gpiozero import Device, Button
-from gpiozero.pins.lgpio import LgpioFactory
-from signal import pause
+import requests
+import time
+import os
+import RPi.GPIO as GPIO
 
-# Use the lgpio pin factory for Pi 5 hardware
-Device.pin_factory = LgpioFactory()
+GPIO.setmode(GPIO.BCM)
 
-# Define button inputs on GPIO pins 5 and 6 (using BCM numbering)
-button_pin5 = Button(5, pull_up=True)#, bounce_time=0.2)
-button_pin6 = Button(6, pull_up=True)#, bounce_time=0.2)
+P1_GPIO = 6
+P2_GPIO = 13
+P3_GPIO = 12 # was 19
+P4_GPIO = 20
+DISP_GPIO = 22 # was 21
+STOP_GPIO = 5
 
-# Define callback functions for when the buttons are pressed
-def on_button5_pressed():
-    print("Button on GPIO 5 pressed")
+print("Starting...")
 
-def on_button6_pressed():
-    print("Button on GPIO 6 pressed")
+# Set button inputs
+# stop
+GPIO.setup(STOP_GPIO, GPIO.IN, pull_up_down=GPIO.PUD_UP)
+GPIO.add_event_detect(STOP_GPIO, GPIO.RISING, callback=button_stop, bouncetime=DEBOUNCE)
 
-print("Polling button states. (Idle state should be 1; pressed state should be 0)")
-while True:
-    print("Button 5:", button5.value, "Button 6:", button6.value)
-    time.sleep(0.5)
+#display
+GPIO.setup(DISP_GPIO, GPIO.IN, pull_up_down=GPIO.PUD_UP)
+GPIO.add_event_detect(DISP_GPIO, GPIO.RISING, callback=button_display, bouncetime=DEBOUNCE+200)
 
-# Attach the callbacks to the button events
-#button_pin5.when_pressed = on_button5_pressed
-#button_pin6.when_pressed = on_button6_pressed
+# preset 1
+GPIO.setup(P1_GPIO, GPIO.IN, pull_up_down=GPIO.PUD_UP)
+GPIO.add_event_detect(P1_GPIO, GPIO.RISING, callback=button_preset, bouncetime=DEBOUNCE)
 
-#print("Monitoring button inputs on GPIO 5 and 6. Press Ctrl+C to exit.")
-#pause()
+# preset 2
+GPIO.setup(P2_GPIO, GPIO.IN, pull_up_down=GPIO.PUD_UP)
+GPIO.add_event_detect(P2_GPIO, GPIO.RISING, callback=button_preset, bouncetime=DEBOUNCE)
+
+# preset 3
+GPIO.setup(P3_GPIO, GPIO.IN, pull_up_down=GPIO.PUD_UP)
+GPIO.add_event_detect(P3_GPIO, GPIO.RISING, callback=button_preset, bouncetime=DEBOUNCE)
+
+#preset 4
+GPIO.setup(P4_GPIO, GPIO.IN, pull_up_down=GPIO.PUD_UP)
+GPIO.add_event_detect(P4_GPIO, GPIO.RISING, callback=button_preset, bouncetime=DEBOUNCE)
+
+#rotaryio interrupt
+GPIO.setup(17, GPIO.IN, pull_up_down=GPIO.PUD_UP)
+GPIO.add_event_detect(17, GPIO.FALLING, callback=rotary_incoming)
+
+time.sleep(2)
