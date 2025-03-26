@@ -78,11 +78,11 @@ while True:
         if j["status"] == "stop":
             if now_playing != "":
                 now_playing = ""
-                display_now(idle_image)
+                #display_now(idle_image)
         else:
             if now_playing != j["file"]:
                 now_playing = j["file"]
-                display_now(img_list[wav_list.index(now_playing)])
+                #display_now(img_list[wav_list.index(now_playing)])
         # See if we need to save a new volume level in Redis
         #if current_volume != new_volume:
             # Save volume in Redis
