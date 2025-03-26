@@ -24,13 +24,11 @@ def lib_setup():
     # Get all sound files in folder
     #
     dir_list = os.listdir(IMAGE_PATH)
-    print("Directory listing:", dir_list)  # Debug: list all files found
     # for each file:
     for d in dir_list:
         if d[-4:] == ".wav":
             noise_name = d[:len(d) - 4]
             wav_list.append(noise_name)
-    print("Final wav_list:", wav_list)  # Debug: show final list
             
 def button_preset(channel):
     #
@@ -93,6 +91,9 @@ GPIO.add_event_detect(P3_GPIO, GPIO.RISING, callback=button_preset, bouncetime=D
 #preset 4
 GPIO.setup(P4_GPIO, GPIO.IN, pull_up_down=GPIO.PUD_UP)
 GPIO.add_event_detect(P4_GPIO, GPIO.RISING, callback=button_preset, bouncetime=DEBOUNCE)
+
+# Setup library
+lib_setup()
 
 while True:
     loop_count = loop_count + 1
