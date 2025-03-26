@@ -3,22 +3,18 @@ FROM balenalib/raspberrypi4-64-debian-python:3.7-sid
 
 WORKDIR /usr/src/app
 
-RUN apt-get update && apt-get install -y \
-    git \
-    build-essential \
-    python3-dev \
-    linux-headers-$(uname -r)
+RUN apt-get update && apt-get install -y python3-setuptools
+
+RUN apt-get update && apt-get install -y i2c-tools
 
 # Clone and build LGPIO from source to get the _lgpio extension
-RUN git clone https://github.com/joan2937/python-lgpio.git /tmp/python-lgpio && \
-    cd /tmp/python-lgpio && \
-    make && \
-    make install && \
-    rm -rf /tmp/python-lgpio
+#RUN git clone https://github.com/joan2937/python-lgpio.git /tmp/python-lgpio && \
+ #   cd /tmp/python-lgpio && \
+  #  make && \
+   # make install && \
+    #rm -rf /tmp/python-lgpio
 
-# Upgrade pip and install gpiozero (which will use the LGPIO pin factory)
-RUN pip3 install --upgrade pip setuptools wheel
-RUN pip3 install gpiozero
+RUN pip3 install requests lgpio rpi-lgpio
 
 COPY *.py ./
 COPY *.ttf ./
