@@ -4,13 +4,40 @@ import os
 import RPi.GPIO as GPIO
 
 GPIO.setmode(GPIO.BCM)
-
+DEBOUNCE = 600  # switch debounce time in m
 P1_GPIO = 6
 P2_GPIO = 13
 P3_GPIO = 12 # was 19
 P4_GPIO = 20
-DISP_GPIO = 22 # was 21
 STOP_GPIO = 5
+
+def button_stop(channel):
+    #
+    # stop payback
+    #
+    global now_playing
+    r = requests.post('http://noise:5000/stop/')
+    print("Stop button pressed.")
+    #now_playing = ""
+    #display_now(idle_image)
+
+def button_preset(channel):
+    #
+    # play a preset
+    #
+    # get preset number (1-4) from channel
+    preset_channel = [P1_GPIO, P2_GPIO, P3_GPIO, P4_GPIO]
+    presety = preset_channel.index(channel)
+    # get preset name value from redis
+    r = redis.StrictRedis(host='redis', port=6379, db=0, decode_responses=True)
+    p = r.get("p" + str(presety + 1))
+    print("Preset {0} ({1}) pressed.".format(p, presety))
+    # play/display the file image
+    if p is None:
+        print("No preset value for {}".format(presety))
+    else:
+        text_icon = ["\U000F03A4", "\U000F03A7", "\U000F03AA", "\U000F03AD"]
+        play_file(p, text_icon[presety])  
 
 print("Starting...")
 
@@ -18,10 +45,6 @@ print("Starting...")
 # stop
 GPIO.setup(STOP_GPIO, GPIO.IN, pull_up_down=GPIO.PUD_UP)
 GPIO.add_event_detect(STOP_GPIO, GPIO.RISING, callback=button_stop, bouncetime=DEBOUNCE)
-
-#display
-GPIO.setup(DISP_GPIO, GPIO.IN, pull_up_down=GPIO.PUD_UP)
-GPIO.add_event_detect(DISP_GPIO, GPIO.RISING, callback=button_display, bouncetime=DEBOUNCE+200)
 
 # preset 1
 GPIO.setup(P1_GPIO, GPIO.IN, pull_up_down=GPIO.PUD_UP)
@@ -38,9 +61,5 @@ GPIO.add_event_detect(P3_GPIO, GPIO.RISING, callback=button_preset, bouncetime=D
 #preset 4
 GPIO.setup(P4_GPIO, GPIO.IN, pull_up_down=GPIO.PUD_UP)
 GPIO.add_event_detect(P4_GPIO, GPIO.RISING, callback=button_preset, bouncetime=DEBOUNCE)
-
-#rotaryio interrupt
-GPIO.setup(17, GPIO.IN, pull_up_down=GPIO.PUD_UP)
-GPIO.add_event_detect(17, GPIO.FALLING, callback=rotary_incoming)
 
 time.sleep(2)
