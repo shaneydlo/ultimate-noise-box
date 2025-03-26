@@ -26,9 +26,9 @@ def lib_setup():
     dir_list = os.listdir(IMAGE_PATH)
     # for each file:
     for d in dir_list:
-        d[-4:] == ".wav":
-        noise_name = d[:len(d) - 4]
-        wav_list.append(noise_name)
+        if d[-4:] == ".wav":
+            noise_name = d[:len(d) - 4]
+            wav_list.append(noise_name)
             
 def button_preset(channel):
     #
