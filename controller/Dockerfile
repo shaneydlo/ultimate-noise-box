@@ -3,7 +3,7 @@ FROM balenalib/raspberrypi4-64-debian-python:3.7-sid
 
 WORKDIR /usr/src/app
 
-RUN apt-get update && apt-get install -y python3-setuptools
+RUN apt-get update && apt-get install -y --upgrade python3-setuptools
 
 RUN apt-get update && apt-get install -y i2c-tools
 
